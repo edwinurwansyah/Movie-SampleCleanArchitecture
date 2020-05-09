@@ -86,7 +86,6 @@ dependencies {
     implementation retrofitDependencies.values()
     implementation rxJavaAndroidDependencies.values()
     implementation okHttpDependencies.values()
-    implementation firebaseDependencies.values()
     implementation daggerDependencies.values()
     kapt daggerKaptDependencies.values()
     implementation glideDependencies.values()

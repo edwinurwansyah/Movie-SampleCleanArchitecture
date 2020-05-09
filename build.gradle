@@ -41,8 +41,6 @@ ext {
     jUnitVersion = "4.12"
     extJUnitVersion = "1.1.1"
     expressoCoreVersion = "3.2.0"
-    firebaseMessagingVersion = "20.1.2"
-    firebaseAnalyticVersion = "17.2.3"
     retrofitVersion = "2.6.0"
     adapterRxVersion = "2.5.0"
     gsonVersion = "2.6.0"
@@ -109,11 +107,6 @@ ext {
     ]
     legacySupportDependencies = [
             legacySupport             : "androidx.legacy:legacy-support-v4:$legacySupport",
-    ]
-    firebaseDependencies = [
-            firebaseAnalytics         : "com.google.firebase:firebase-analytics:$firebaseAnalyticVersion",
-            firebaseMessaaging        : "com.google.firebase:firebase-messaging:$firebaseMessagingVersion",
-            firebaseCrashLytics       : "com.google.firebase:firebase-crashlytics:$crashlyticsVersion"
     ]
 
     glideDependencies = [
