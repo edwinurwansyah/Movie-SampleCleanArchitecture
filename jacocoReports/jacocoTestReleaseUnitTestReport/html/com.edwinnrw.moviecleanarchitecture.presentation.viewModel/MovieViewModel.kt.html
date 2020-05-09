@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MovieViewModel.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">app</a> &gt; <a href="index.source.html" class="el_package">com.edwinnrw.moviecleanarchitecture.presentation.viewModel</a> &gt; <span class="el_source">MovieViewModel.kt</span></div><h1>MovieViewModel.kt</h1><pre class="source lang-java linenums">package com.edwinnrw.moviecleanarchitecture.presentation.viewModel
+
+import androidx.lifecycle.MutableLiveData
+import com.edwinnrw.moviecleanarchitecture.domain.common.MovieUseCaseContract
+import com.edwinnrw.moviecleanarchitecture.domain.common.ResultState
+import com.edwinnrw.moviecleanarchitecture.domain.usecase.MovieUseCase
+import com.edwinnrw.moviecleanarchitecture.presentation.common.getResultStateError
+import javax.inject.Inject
+
+<span class="fc" id="L10">class MovieViewModel@Inject constructor(private val movieUseCase: MovieUseCaseContract)  :  BaseViewModel() {</span>
+
+<span class="fc" id="L12">    val stateResultMovieNowPlaying = MutableLiveData&lt;ResultState&gt;()</span>
+<span class="fc" id="L13">    val stateResultMovieUpcoming= MutableLiveData&lt;ResultState&gt;()</span>
+<span class="fc" id="L14">    val stateResultMoviePopular = MutableLiveData&lt;ResultState&gt;()</span>
+
+
+    fun getMovieNowPlaying(){
+
+<span class="fc" id="L19">        val disposable = movieUseCase.getMovieNowPlaying()</span>
+<span class="fc" id="L20">            .doOnSubscribe {</span>
+<span class="fc" id="L21">                stateResultMovieNowPlaying.postValue(ResultState.Loading)</span>
+<span class="fc" id="L22">            }</span>
+<span class="fc" id="L23">            .subscribe ({ resultState -&gt;</span>
+
+<span class="fc" id="L25">                stateResultMovieNowPlaying.postValue(resultState)</span>
+
+<span class="fc" id="L27">            },{</span>
+<span class="fc" id="L28">                stateResultMovieNowPlaying.postValue(getResultStateError(it))</span>
+
+<span class="fc" id="L30">            })</span>
+<span class="fc" id="L31">        addDisposable(disposable)</span>
+
+<span class="fc" id="L33">    }</span>
+
+    fun getMovieUpcoming(){
+
+<span class="fc" id="L37">        val disposable = movieUseCase.getMovieUpcoming()</span>
+<span class="fc" id="L38">            .doOnSubscribe {</span>
+<span class="fc" id="L39">                stateResultMovieUpcoming.postValue(ResultState.Loading)</span>
+<span class="fc" id="L40">            }</span>
+<span class="fc" id="L41">            .subscribe ({ resultState -&gt;</span>
+
+<span class="fc" id="L43">                stateResultMovieUpcoming.postValue(resultState)</span>
+
+<span class="fc" id="L45">            },{</span>
+<span class="fc" id="L46">                stateResultMovieUpcoming.postValue(getResultStateError(it))</span>
+
+<span class="fc" id="L48">            })</span>
+<span class="fc" id="L49">        addDisposable(disposable)</span>
+
+<span class="fc" id="L51">    }</span>
+
+    fun getMovieTrending(){
+
+<span class="fc" id="L55">        val disposable = movieUseCase.getMovieTrending()</span>
+<span class="fc" id="L56">            .doOnSubscribe {</span>
+<span class="fc" id="L57">                stateResultMoviePopular.postValue(ResultState.Loading)</span>
+<span class="fc" id="L58">            }</span>
+<span class="fc" id="L59">            .subscribe ({ resultState -&gt;</span>
+
+<span class="fc" id="L61">                stateResultMoviePopular.postValue(resultState)</span>
+
+<span class="fc" id="L63">            },{</span>
+<span class="fc" id="L64">                stateResultMoviePopular.postValue(getResultStateError(it))</span>
+
+<span class="fc" id="L66">            })</span>
+<span class="fc" id="L67">        addDisposable(disposable)</span>
+
+<span class="fc" id="L69">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

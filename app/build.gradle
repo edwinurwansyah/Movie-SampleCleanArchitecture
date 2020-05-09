@@ -1,0 +1,102 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+apply plugin: 'com.google.firebase.crashlytics'
+
+apply plugin: 'jacoco-android'
+
+jacoco {
+    toolVersion = "0.8.4"
+    reportsDir = file("$rootDir/jacocoReports")
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+    jacoco.excludes = ['jdk.internal.*']
+
+}
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+
+    defaultConfig {
+        applicationId "com.edwinnrw.moviecleanarchitecture"
+        minSdkVersion 19
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        debug {
+            testCoverageEnabled true
+            buildConfigField("String", "API_KEY", '"56c0b25e08f10a2324473bfc39985e49"')
+            buildConfigField("String", "SERVER_URL", '"https://api.themoviedb.org"')
+        }
+        release {
+            testCoverageEnabled true
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "API_KEY", '"56c0b25e08f10a2324473bfc39985e49"')
+            buildConfigField("String", "SERVER_URL", '"https://api.themoviedb.org"')
+        }
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
+}
+def exclusionList = [
+        '**/data/**',
+        '**/*BaseApplication*',
+        '**/domain/mapper/**',
+        '**/domain/entities/**',
+        '**/domain/common/**',
+        '**/presentation/common/**',
+        '**/presentation/di/**',
+        '**/presentation/ui/**',
+        '**/presentation/viewModel/*BaseViewModel*',
+        '**/presentation/viewModel/*ViewModelFactory*',
+        '**/presentation/viewModel/*_Factory*',
+
+]
+
+jacocoAndroidUnitTestReport {
+    excludes += exclusionList
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation multidexDependencies.values()
+
+    implementation kotlinDependencies.values()
+    implementation appCompatDependencies.values()
+    implementation uiDependencies.values()
+    implementation jetpackDependencies.values()
+    implementation googleServiceDependencies.values()
+    implementation legacySupportDependencies.values()
+
+    implementation retrofitDependencies.values()
+    implementation rxJavaAndroidDependencies.values()
+    implementation okHttpDependencies.values()
+    implementation firebaseDependencies.values()
+    implementation daggerDependencies.values()
+    kapt daggerKaptDependencies.values()
+    implementation glideDependencies.values()
+    annotationProcessor glideDependencies.values()
+    implementation (mockitoDependencies.values()){
+        exclude group: 'org.jetbrains.kotlin', module: 'kotlin-reflect'
+    }
+    testImplementation testDependencies.values()
+    androidTestImplementation androidTestDependencies.values()
+    testImplementation spekDependenciesTestImplementation.values()
+
+    testRuntimeOnly testRuntimeDependencies.values()
+}
