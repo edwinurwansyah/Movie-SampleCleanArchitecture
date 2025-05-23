@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.edwinnrw.moviecleanarchitecture.R
+import com.edwinnrw.moviecleanarchitecture.databinding.ActivityMainBinding
 import com.edwinnrw.moviecleanarchitecture.domain.common.ResultState
 import com.edwinnrw.moviecleanarchitecture.domain.entities.MoviesEntity
 import com.edwinnrw.moviecleanarchitecture.presentation.common.PeekingLiniearLayoutManager
@@ -16,7 +17,6 @@ import com.edwinnrw.moviecleanarchitecture.presentation.ui.adapter.UpcomingAdapt
 import com.edwinnrw.moviecleanarchitecture.presentation.viewModel.MovieViewModel
 import com.edwinnrw.moviecleanarchitecture.presentation.viewModel.ViewModelFactory
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -34,10 +34,12 @@ class MainActivity : AppCompatActivity() {
     lateinit var itemsUpcoming:MutableList<MoviesEntity>
     lateinit var itemsTrending:MutableList<MoviesEntity>
 
+    private var binding:ActivityMainBinding?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding?.root)
         AndroidInjection.inject(this)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MovieViewModel::class.java)
         observe(viewModel.stateResultMovieNowPlaying,::manageStateResponseNowPlaying)
@@ -53,16 +55,16 @@ class MainActivity : AppCompatActivity() {
         adapterUpcoming = UpcomingAdapter(this,itemsUpcoming)
 
 
-        recyclerViewTrending.apply {
+        binding?.recyclerViewTrending?.apply {
             layoutManager = PeekingLiniearLayoutManager(this@MainActivity,0.8f,LinearLayoutManager.HORIZONTAL,false)
             adapter = adapteTrending
         }
 
-        recyclerViewUpcoming.apply {
+        binding?.recyclerViewUpcoming?.apply {
             layoutManager = PeekingLiniearLayoutManager(this@MainActivity,0.38f,LinearLayoutManager.HORIZONTAL,false)
             adapter = adapterUpcoming
         }
-        recyclerViewTheatre.apply {
+        binding?.recyclerViewTheatre?.apply {
             layoutManager = PeekingLiniearLayoutManager(this@MainActivity,0.38f,LinearLayoutManager.HORIZONTAL,false)
             adapter = adapterNowPlaying
         }
@@ -90,6 +92,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this,state.throwable.message, Toast.LENGTH_LONG).show()
             }
 
+            else -> {}
         }
     }
     private fun manageStateResponseNowPlaying(state: ResultState){
@@ -111,6 +114,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this,state.throwable.message, Toast.LENGTH_LONG).show()
             }
 
+            else -> {}
         }
     }
     private fun manageStateResponseUpcoming(state: ResultState){
@@ -132,6 +136,7 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this,state.throwable.message, Toast.LENGTH_LONG).show()
             }
 
+            else -> {}
         }
     }
 }

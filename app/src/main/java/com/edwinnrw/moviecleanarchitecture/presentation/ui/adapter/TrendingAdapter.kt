@@ -5,14 +5,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.edwinnrw.moviecleanarchitecture.R
+import com.edwinnrw.moviecleanarchitecture.databinding.ItemPopularBinding
 import com.edwinnrw.moviecleanarchitecture.domain.entities.MoviesEntity
 
 class TrendingAdapter(val context: Context, private val items: MutableList<MoviesEntity>)
     : RecyclerView.Adapter<TrendingiVewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrendingiVewHolder {
-        val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_popular,parent,false)
-        return TrendingiVewHolder(itemView)
+        val binding = ItemPopularBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return TrendingiVewHolder(binding)
     }
 
     override fun getItemCount(): Int {

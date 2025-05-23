@@ -5,14 +5,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.edwinnrw.moviecleanarchitecture.R
+import com.edwinnrw.moviecleanarchitecture.databinding.ItemUpcomingBinding
 import com.edwinnrw.moviecleanarchitecture.domain.entities.MoviesEntity
 
 class UpcomingAdapter(val context: Context, private val items: MutableList<MoviesEntity>)
     : RecyclerView.Adapter<UpcomingVewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UpcomingVewHolder {
-        val itemView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_upcoming,parent,false)
-        return UpcomingVewHolder(itemView)
+        val binding = ItemUpcomingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return UpcomingVewHolder(binding)
     }
 
     override fun getItemCount(): Int {

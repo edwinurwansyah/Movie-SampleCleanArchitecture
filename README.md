@@ -10,5 +10,4 @@ This is example app use SampleCleanArchitecture and Spek Framework in Unit Testi
 - Glide
 - Mockito
 - Spek Framework
-- Jacoco for Test Report
 - Dagger for Di

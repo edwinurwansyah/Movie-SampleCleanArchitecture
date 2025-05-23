@@ -2,36 +2,33 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 
-apply plugin: 'kotlin-android-extensions'
-
 apply plugin: 'kotlin-kapt'
 
 apply plugin: 'com.google.firebase.crashlytics'
 
-apply plugin: 'jacoco-android'
-
-jacoco {
-    toolVersion = "0.8.4"
-    reportsDir = file("$rootDir/jacocoReports")
-}
-
-tasks.withType(Test) {
-    jacoco.includeNoLocationClasses = true
-    jacoco.excludes = ['jdk.internal.*']
-
-}
 android {
-    compileSdkVersion 29
+    namespace 'com.edwinnrw.moviecleanarchitecture'
+    compileSdkVersion 34
     buildToolsVersion "29.0.2"
 
     defaultConfig {
         applicationId "com.edwinnrw.moviecleanarchitecture"
         minSdkVersion 19
-        targetSdkVersion 29
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    buildFeatures {
+        buildConfig true
+        viewBinding = true
     }
 
     buildTypes {
@@ -52,24 +49,7 @@ android {
         unitTests.returnDefaultValues = true
     }
 
-}
-def exclusionList = [
-        '**/data/**',
-        '**/*BaseApplication*',
-        '**/domain/mapper/**',
-        '**/domain/entities/**',
-        '**/domain/common/**',
-        '**/presentation/common/**',
-        '**/presentation/di/**',
-        '**/presentation/ui/**',
-        '**/presentation/viewModel/*BaseViewModel*',
-        '**/presentation/viewModel/*ViewModelFactory*',
-        '**/presentation/viewModel/*_Factory*',
 
-]
-
-jacocoAndroidUnitTestReport {
-    excludes += exclusionList
 }
 
 dependencies {
