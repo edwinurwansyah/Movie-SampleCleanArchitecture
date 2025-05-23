@@ -114,7 +114,6 @@ ext {
     retrofitDependencies = [
             retrofit                  : "com.squareup.retrofit2:retrofit:$retrofitVersion",
             retrofitAdapter           : "com.squareup.retrofit2:adapter-rxjava2:$adapterRxVersion",
-            retrofitConverterGson     : "com.squareup.retrofit2:converter-gson:$gsonVersion",
     ]
     rxJavaAndroidDependencies = [
             rxJava                    : "io.reactivex.rxjava2:rxjava:$rxjavaVersion",

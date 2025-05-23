@@ -1,11 +1,11 @@
 package com.edwinnrw.moviecleanarchitecture.data.entities
 
 
-import com.google.gson.annotations.SerializedName
+import com.alibaba.fastjson.annotation.JSONField
 
 data class GenreDataSourceApi(
-    @SerializedName("id")
+    @JSONField(name = "id")
     val id: Int?,
-    @SerializedName("name")
+    @JSONField(name = "name")
     val name: String?
 )

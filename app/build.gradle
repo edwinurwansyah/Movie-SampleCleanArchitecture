@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId "com.edwinnrw.moviecleanarchitecture"
-        minSdkVersion 19
+        minSdkVersion 23
         targetSdkVersion 33
         versionCode 1
         versionName "1.0"
@@ -73,4 +73,8 @@ dependencies {
     implementation (mockitoDependencies.values()){
         exclude group: 'org.jetbrains.kotlin', module: 'kotlin-reflect'
     }
+    implementation 'com.alibaba:fastjson:1.2.83'
+    implementation 'org.ligboy.retrofit2:converter-fastjson-android:2.1.0'
+
+
 }

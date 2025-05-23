@@ -1,15 +1,16 @@
 package com.edwinnrw.moviecleanarchitecture.data.entities
 
 
-import com.google.gson.annotations.SerializedName
+import com.alibaba.fastjson.annotation.JSONField
 
 data class BaseMovieDataSourceApi(
-    @SerializedName("page")
+    @JSONField(name = "page")
     val page: Int?,
-    @SerializedName("results")
+    @JSONField(name = "results")
     val moviesDataSourceApis: List<MoviesDataSourceApi>?,
-    @SerializedName("total_pages")
+    @JSONField(name = "total_pages")
     val totalPages: Int?,
-    @SerializedName("total_results")
+    @JSONField(name = "total_results")
     val totalResults: Int?
 )
+

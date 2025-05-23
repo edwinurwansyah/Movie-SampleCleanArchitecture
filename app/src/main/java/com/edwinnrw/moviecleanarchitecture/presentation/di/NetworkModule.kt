@@ -11,7 +11,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.fastjson.FastJsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -29,8 +29,8 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    internal fun provideGsonConverterFactory(): GsonConverterFactory {
-        return GsonConverterFactory.create()
+    internal fun provideFastJsonConverterFactory(): FastJsonConverterFactory {
+        return FastJsonConverterFactory.create()
 
     }
 
@@ -51,7 +51,7 @@ class NetworkModule {
 
     @Singleton
     @Provides
-    internal fun provideRetrofit(okHttpClient: OkHttpClient, converterFactory: GsonConverterFactory): Retrofit {
+    internal fun provideRetrofit(okHttpClient: OkHttpClient, converterFactory: FastJsonConverterFactory): Retrofit {
         return Retrofit.Builder().baseUrl(BuildConfig.SERVER_URL)
             .client(okHttpClient)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -64,6 +64,5 @@ class NetworkModule {
     internal fun provideApiService(retrofit: Retrofit) : RemoteApi {
         return retrofit.create(RemoteApi::class.java)
     }
-
 
 }

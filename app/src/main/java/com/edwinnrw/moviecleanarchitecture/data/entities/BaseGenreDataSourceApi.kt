@@ -1,9 +1,9 @@
 package com.edwinnrw.moviecleanarchitecture.data.entities
 
 
-import com.google.gson.annotations.SerializedName
+import com.alibaba.fastjson.annotation.JSONField
 
 data class BaseGenreDataSourceApi(
-    @SerializedName("genres")
+    @JSONField(name = "genres")
     val genreDataSourceApis: List<GenreDataSourceApi>?
 )

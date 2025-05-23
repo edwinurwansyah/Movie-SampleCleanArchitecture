@@ -1,13 +1,13 @@
 package com.edwinnrw.moviecleanarchitecture.data.entities
 
 
-import com.google.gson.annotations.SerializedName
+import com.alibaba.fastjson.annotation.JSONField
 
 data class BaseErrorDataSourceApi(
-    @SerializedName("status_code")
+    @JSONField(name = "status_code")
     val statusCode: Int?,
-    @SerializedName("status_message")
+    @JSONField(name = "status_message")
     val statusMessage: String?,
-    @SerializedName("success")
+    @JSONField(name = "success")
     val success: Boolean?
 )

@@ -1,35 +1,35 @@
 package com.edwinnrw.moviecleanarchitecture.data.entities
 
 
-import com.google.gson.annotations.SerializedName
+import com.alibaba.fastjson.annotation.JSONField
 
 data class MoviesDataSourceApi(
-    @SerializedName("adult")
+    @JSONField(name = "adult")
     val adult: Boolean?,
-    @SerializedName("backdrop_path")
+    @JSONField(name = "backdrop_path")
     val backdropPath: String?,
-    @SerializedName("genre_ids")
+    @JSONField(name = "genre_ids")
     val genreIds: List<Int>?,
-    @SerializedName("id")
+    @JSONField(name = "id")
     val id: Int?,
-    @SerializedName("original_language")
+    @JSONField(name = "original_language")
     val originalLanguage: String?,
-    @SerializedName("original_title")
+    @JSONField(name = "original_title")
     val originalTitle: String?,
-    @SerializedName("overview")
+    @JSONField(name = "overview")
     val overview: String?,
-    @SerializedName("popularity")
+    @JSONField(name = "popularity")
     val popularity: Double?,
-    @SerializedName("poster_path")
+    @JSONField(name = "poster_path")
     val posterPath: String?,
-    @SerializedName("release_date")
+    @JSONField(name = "release_date")
     val releaseDate: String?,
-    @SerializedName("title")
+    @JSONField(name = "title")
     val title: String?,
-    @SerializedName("video")
+    @JSONField(name = "video")
     val video: Boolean?,
-    @SerializedName("vote_average")
+    @JSONField(name = "vote_average")
     val voteAverage: Double?,
-    @SerializedName("vote_count")
+    @JSONField(name = "vote_count")
     val voteCount: Int?
 )
