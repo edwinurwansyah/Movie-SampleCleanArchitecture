@@ -1,13 +1,15 @@
 package com.edwinnrw.moviecleanarchitecture.data.entities
 
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class BaseErrorDataSourceApi(
-    @SerializedName("status_code")
+    @SerialName("status_code")
     val statusCode: Int?,
-    @SerializedName("status_message")
+    @SerialName("status_message")
     val statusMessage: String?,
-    @SerializedName("success")
+    @SerialName("success")
     val success: Boolean?
 )

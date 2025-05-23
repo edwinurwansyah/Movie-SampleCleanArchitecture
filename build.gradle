@@ -12,7 +12,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath 'com.google.firebase:firebase-crashlytics-gradle:3.0.1'
     }
-    
+
 }
 
 allprojects {
@@ -114,7 +114,6 @@ ext {
     retrofitDependencies = [
             retrofit                  : "com.squareup.retrofit2:retrofit:$retrofitVersion",
             retrofitAdapter           : "com.squareup.retrofit2:adapter-rxjava2:$adapterRxVersion",
-            retrofitConverterGson     : "com.squareup.retrofit2:converter-gson:$gsonVersion",
     ]
     rxJavaAndroidDependencies = [
             rxJava                    : "io.reactivex.rxjava2:rxjava:$rxjavaVersion",
@@ -140,12 +139,10 @@ ext {
             junit                     : "junit:junit:${junitVersion}",
             mockito                   : "org.mockito:mockito-core:$mockitoVersion",
             kotlinReflect             : "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion",
-            testingKtx                : "com.jraska.livedata:testing-ktx:$testingKtxVersion",
             archCoreTesting           : "androidx.arch.core:core-testing:$archCoreTestingVersion",
 
     ]
     androidTestDependencies = [
-            expressoCore              : "androidx.test.espresso:espresso-core:$expressoCoreVersion",
             testRunner                : "androidx.test:runner:$testRunnerVersion",
             testRules                 : "androidx.test:rules:$testRulesVersion",
             extJunit                  : "androidx.test.ext:junit:$extJunitVersion",
@@ -164,4 +161,17 @@ ext {
 }
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+task analyzeApk(type: JavaExec) {
+    group = "reporting"
+    description = "Analyze APK with ApkScale"
+
+    classpath = files()
+    main = "-jar"
+    args = [
+            "${rootDir}/tools/apkscale/build/libs/apkscale-all.jar",
+            "${buildDir}/outputs/apk/release/app-release.apk",
+            "--output", "${buildDir}/outputs/apkscale-report.txt"
+    ]
 }

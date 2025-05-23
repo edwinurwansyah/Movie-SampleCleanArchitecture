@@ -1,11 +1,13 @@
 package com.edwinnrw.moviecleanarchitecture.data.entities
 
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class GenreDataSourceApi(
-    @SerializedName("id")
+    @SerialName("id")
     val id: Int?,
-    @SerializedName("name")
+    @SerialName("name")
     val name: String?
 )

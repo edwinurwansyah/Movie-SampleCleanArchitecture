@@ -2,8 +2,9 @@ package com.edwinnrw.moviecleanarchitecture.presentation.common
 
 import com.edwinnrw.moviecleanarchitecture.data.entities.BaseErrorDataSourceApi
 import com.edwinnrw.moviecleanarchitecture.domain.common.ResultState
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.google.common.reflect.TypeToken
+import kotlinx.serialization.json.Json
+
 import retrofit2.HttpException
 
 
@@ -14,21 +15,21 @@ fun getResultStateError(error: Throwable) : ResultState {
                 ResultState.NoConnection(throwable = Throwable("No Connection"))
             }
             400 -> {
-                val type = object : TypeToken<BaseErrorDataSourceApi>() {}.type
-                var errorResponse: BaseErrorDataSourceApi? = null
-                error.response()?.errorBody()?.let {
-                    errorResponse = Gson().fromJson(error.response()?.errorBody()?.charStream(), type)
-
+                val errorBody = error.response()?.errorBody()?.string()
+                val errorResponse: BaseErrorDataSourceApi? = try {
+                    errorBody?.let { Json { ignoreUnknownKeys = true }.decodeFromString(it) }
+                } catch (e: Exception) {
+                    null
                 }
                 return ResultState.BadRequest(throwable = Throwable(errorResponse?.statusMessage?:""))
 
             }
             401 -> {
-                val type = object : TypeToken<BaseErrorDataSourceApi>() {}.type
-                var errorResponse: BaseErrorDataSourceApi? = null
-                error.response()?.errorBody()?.let {
-                    errorResponse = Gson().fromJson(error.response()?.errorBody()?.charStream(), type)
-
+                val errorBody = error.response()?.errorBody()?.string()
+                val errorResponse: BaseErrorDataSourceApi? = try {
+                    errorBody?.let { Json { ignoreUnknownKeys = true }.decodeFromString(it) }
+                } catch (e: Exception) {
+                    null
                 }
                 return ResultState.Unauthorized(throwable = Throwable(errorResponse?.statusMessage?:""))
 
@@ -38,21 +39,21 @@ fun getResultStateError(error: Throwable) : ResultState {
 
             }
             403->{
-                val type = object : TypeToken<BaseErrorDataSourceApi>() {}.type
-                var errorResponse: BaseErrorDataSourceApi? = null
-                error.response()?.errorBody()?.let {
-                    errorResponse = Gson().fromJson(error.response()?.errorBody()?.charStream(), type)
-
+                val errorBody = error.response()?.errorBody()?.string()
+                val errorResponse: BaseErrorDataSourceApi? = try {
+                    errorBody?.let { Json { ignoreUnknownKeys = true }.decodeFromString(it) }
+                } catch (e: Exception) {
+                    null
                 }
                 return ResultState.Forbidden(throwable = Throwable(errorResponse?.statusMessage?:""))
             }
 
             409->{
-                val type = object : TypeToken<BaseErrorDataSourceApi>() {}.type
-                var errorResponse: BaseErrorDataSourceApi? = null
-                error.response()?.errorBody()?.let {
-                    errorResponse = Gson().fromJson(error.response()?.errorBody()?.charStream(), type)
-
+                val errorBody = error.response()?.errorBody()?.string()
+                val errorResponse: BaseErrorDataSourceApi? = try {
+                    errorBody?.let { Json { ignoreUnknownKeys = true }.decodeFromString(it) }
+                } catch (e: Exception) {
+                    null
                 }
                 return ResultState.Conflict(throwable = Throwable(errorResponse?.statusMessage?:""))
 

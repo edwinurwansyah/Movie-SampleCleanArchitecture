@@ -1,15 +1,14 @@
-apply plugin: 'com.android.application'
-
-apply plugin: 'kotlin-android'
-
-apply plugin: 'kotlin-kapt'
-
-apply plugin: 'com.google.firebase.crashlytics'
+plugins {
+    id "org.jetbrains.kotlin.plugin.serialization" version "1.9.24"
+    id 'com.google.firebase.crashlytics'
+    id 'kotlin-kapt'
+    id 'kotlin-android'
+    id 'com.android.application'
+}
 
 android {
     namespace 'com.edwinnrw.moviecleanarchitecture'
     compileSdkVersion 34
-    buildToolsVersion "29.0.2"
 
     defaultConfig {
         applicationId "com.edwinnrw.moviecleanarchitecture"
@@ -31,6 +30,7 @@ android {
         viewBinding = true
     }
 
+
     buildTypes {
         debug {
             testCoverageEnabled true
@@ -49,6 +49,10 @@ android {
         unitTests.returnDefaultValues = true
     }
 
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
 
 }
 
@@ -63,6 +67,9 @@ dependencies {
     implementation googleServiceDependencies.values()
     implementation legacySupportDependencies.values()
 
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
+
     implementation retrofitDependencies.values()
     implementation rxJavaAndroidDependencies.values()
     implementation okHttpDependencies.values()
@@ -73,9 +80,9 @@ dependencies {
     implementation (mockitoDependencies.values()){
         exclude group: 'org.jetbrains.kotlin', module: 'kotlin-reflect'
     }
-    testImplementation testDependencies.values()
-    androidTestImplementation androidTestDependencies.values()
-    testImplementation spekDependenciesTestImplementation.values()
-
-    testRuntimeOnly testRuntimeDependencies.values()
+//    testImplementation testDependencies.values()
+//    androidTestImplementation androidTestDependencies.values()
+//    testImplementation spekDependenciesTestImplementation.values()
+//
+//    testRuntimeOnly testRuntimeDependencies.values()
 }
